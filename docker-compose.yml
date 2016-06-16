@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+
+  nginx:
+    image: nginx
+
+  nodejs-service:
+    container_name: nodejs-app
+    build: ./nodejs-app
+    image: node-image-v02-ak
+    environment:
+      NEO4J_URL: http://neo4j-db:7474
+    ports:
+      - 80:3000
+
+  neo4j-service:
+    container_name: neo4j-db
+    image: neo4j
+    environment:
+      NEO4J_AUTH: none
+    volumes:
+      - ./neo4j-db/neo4j-data:/data
